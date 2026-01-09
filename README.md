@@ -4,29 +4,6 @@ A backend **eCommerce API** built with **TypeScript**, **Express.js**, **MongoDB
 
 ---
 
-## 📦 Table of Contents
-
-1. **Introduction**
-2. **Features**
-3. **Tech Stack**
-4. **Installation & Setup**
-5. **Environment Variables**
-6. **Running the App**
-7. **API Documentation**
-
-   * Categories
-   * Products
-   * Orders
-   * Users (if implemented)
-8. **Data Models**
-9. **Error Handling**
-10. **Testing**
-11. **Deployment**
-12. **Contributing**
-13. **License**
-
----
-
 ## 1. Introduction
 
 This project implements a RESTful backend for an eCommerce store using **Node.js**, **Express**, **MongoDB**, and **TypeScript**. It includes essential endpoints to manage products, categories, orders, and optionally users and authentication. It also supports **Docker** for easy deployment.
