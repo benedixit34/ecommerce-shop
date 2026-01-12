@@ -1,11 +1,16 @@
 import { Router } from 'express';
 import * as userController from '../controllers/userController';
 import { protect, authorize } from '../middleware/auth';
-
+import { uploadAvatar } from '../config/cloudinary';
+import { validateSingleImage } from '../middleware/imageValidation';
 const router = Router();
 
 router.get('/profile', protect, userController.getProfile);
-router.put('/profile', protect, userController.updateProfile);
+router.put('/profile', protect, uploadAvatar.single('avatar'), userController.updateProfile);
+router.post('/avatar', protect, 
+    uploadAvatar.single('avatar'),
+    validateSingleImage('avatar'),
+    userController.uploadUserAvatar);
 router.put('/password', protect, userController.updatePassword);
 router.post('/address', protect, userController.addAddress);
 router.put('/address/:addressId', protect, userController.updateAddress);

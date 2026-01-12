@@ -62,6 +62,7 @@ export interface IProduct extends Document {
 }
 
 export interface IProductImage {
+  _id?: Types.ObjectId;
   url: string;
   publicId?: string;
 }
@@ -94,7 +95,7 @@ export interface IOrder extends Document {
   orderNumber: string;
   items: IOrderItem[];
   shippingAddress: IAddress;
-  paymentMethod: 'card' | 'paypal' | 'cod';
+  paymentMethod: 'card' | 'bank_transfer' | 'ussd' | 'mobile_money' | 'qr';
   paymentResult?: {
     id: string;
     status: string;
@@ -139,4 +140,33 @@ export interface AuthRequest extends Request {
 export interface JwtPayload {
   id: string;
   role: string;
+}
+
+
+export interface ValidateImageOptions {
+  minWidth?: number;
+  minHeight?: number;
+  maxWidth?: number;
+  maxHeight?: number;
+}
+
+export interface FlutterwavePayload {
+  tx_ref: string;
+  amount: number;
+  currency: string;
+  redirect_url: string;
+  customer: {
+    email: string;
+    phonenumber?: string;
+    name: string;
+  };
+  customizations: {
+    title: string;
+    description: string;
+    logo?: string;
+  };
+  meta?: {
+    orderId: string;
+    userId: string;
+  };
 }

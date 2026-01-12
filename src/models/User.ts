@@ -65,7 +65,7 @@ userSchema.methods.comparePassword = async function (
 
 userSchema.methods.generateAuthToken = function (): string {
   const secret = process.env.JWT_SECRET;
-  const expiresIn = process.env.JWT_EXPIRE || "1d"; // fallback default
+  const expiresIn = process.env.JWT_EXPIRE || "1d";
 
   if (!secret) {
     throw new Error("JWT_SECRET must be defined");

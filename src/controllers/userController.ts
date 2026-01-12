@@ -22,11 +22,15 @@ export const updateProfile = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { name, email, phone, avatar } = req.body;
+    const { name, email, phone } = req.body;
+    const updateData: any = { name, email, phone };
+    if (req.file) {
+      updateData.avatar = req.file.path;
+    }
 
     const user = await User.findByIdAndUpdate(
       req.user?.id,
-      { name, email, phone, avatar },
+      updateData,
       { new: true, runValidators: true }
     );
 
@@ -35,6 +39,29 @@ export const updateProfile = async (
     next(err);
   }
 };
+
+export const uploadUserAvatar = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    if (!req.file) {
+      return next(new AppError('Please upload an image', 400));
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user?.id,
+      { avatar: req.file.path },
+      { new: true }
+    );
+
+    res.json({ 
+      success: true, 
+      data: {
+        avatar: user?.avatar
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+}
 
 export const updatePassword = async (
   req: AuthRequest,
